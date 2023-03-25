@@ -43,6 +43,7 @@ headers_style = """
 <style>
 h1 {
 color: #FFF1E6;
+text-align: center;
 }
 h2 {
 padding-left: 15%;
@@ -148,14 +149,12 @@ if gif_playlist:
             st.session_state.video = gif["gif"]
 
 
-col1, col2, col3, col4, col5, col6 = st.columns(6)
-
+col1, col2, col3 = st.columns([2,6,2])
 with col1:
-    pass
-
+    st.write("")
 with col2:
     try:
-        image = st.image(st.session_state.video, width=500)
+        image = st.image(st.session_state.video, width=400)
 
         # st.write(type(image))
     except NameError:
@@ -165,15 +164,22 @@ with col2:
     except:
         image = st.image("https://media.giphy.com/media/I4SEHpagUfSpi/giphy.gif", width=500)
         st.warning("hmmm...")
+with col3:
+    st.write("")
 
-with col2:
-    pass
 
 gif_styling = """
 <style>
 img[alt='0'] {
 border: 5px solid #000000;
 border-radius: 15%;
+left: 50%;
+}
+.css-1kyxreq etr89bj2 {
+display: flex;
+justify-content: center;
+align-items: center;
+left: 50%;
 }
 </style>
 """
