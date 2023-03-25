@@ -6,34 +6,59 @@ from PIL import Image, UnidentifiedImageError
 st.set_page_config(layout="centered",
                    page_icon="🕹", page_title="GIF DJ")
 
-page_bg_img = """
+with st.sidebar:
+    bg_image = st.selectbox("Background image:", ["Theatre 1", "Theatre 2", "Theatre 3", "Cats 1", "Cats 2", "Cats 3"])
+    if bg_image == "Theatre 1":
+        update_bg_img = "https://i.ibb.co/GsQBHHq/theatre-img.png"
+    elif bg_image == "Theatre 2":
+        update_bg_img = "https://i.ibb.co/893zbnm/theatre3.png"
+    elif bg_image == "Theatre 3":
+        update_bg_img = "https://i.ibb.co/TM3QqjT/theatre2.png"
+    elif bg_image == "Cats 1":
+        update_bg_img = "https://i.ibb.co/XWYG4qq/cats2.png"
+    elif bg_image == "Cats 2":
+        update_bg_img = "https://i.ibb.co/VQGBZP8/cats1.png"
+    elif bg_image == "Cats 3":
+        update_bg_img = "https://i.ibb.co/K6y1SqR/cats3.png"
+
+
+    gif_width = st.selectbox("GIF SIZE: ", ["Large", "Small"])
+    if gif_width == "Small":
+        update_width = 300
+    else:
+        update_width = 500
+
+page_bg_img = f"""
 <style>
-#MainMenu {visibility: hidden;}
-footer {visibility: hidden;}
-header {visibility: hidden;}
-[data-testid="stAppViewContainer"] {
-background-image: url("https://i.ibb.co/GsQBHHq/theatre-img.png");
-background-size: contain;
-}
-[data-testid="stHeader"] {
+#MainMenu {{visibility: hidden;}}
+footer {{visibility: hidden;}}
+header {{visibility: hidden;}}
+[data-testid="stAppViewContainer"] {{
+background-image: url({update_bg_img});
+background-size: auto;
+}}
+[data-testid="stHeader"] {{
 background-color: rgba(0,0,0,0);
-[data-testid="stToolbar"] {
+[data-testid="stToolbar"] {{
 right: 2rem;
-}
-[data-testid="column"] {
+}}
+[data-testid="column"] {{
 background: rgba(255,255,255, 0.5);
 border: 25 25 round;
-}
-[data-testid="column"] img:hover {
+}}
+[data-testid="column"] img:hover {{
 background: rgba(255,255,255, 0.5);
 background-color: white;
 border: 25 25 round;
-}
-.h1 {
+}}
+.h1 {{
 color: #ffff;
-}
+}}
 </style>
 """
+
+st.markdown(page_bg_img, unsafe_allow_html=True)
+
 
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
@@ -149,20 +174,20 @@ if gif_playlist:
             st.session_state.video = gif["gif"]
 
 
-col1, col2, col3 = st.columns([2,6,2])
+col1, col2, col3 = st.columns([2,8,2])
 with col1:
     st.write("")
 with col2:
     try:
-        image = st.image(st.session_state.video, width=400)
+        image = st.image(st.session_state.video, width=update_width)
 
         # st.write(type(image))
     except NameError:
-        image = st.image("https://media.giphy.com/media/I4SEHpagUfSpi/giphy.gif", width=500)
+        image = st.image("https://media.giphy.com/media/I4SEHpagUfSpi/giphy.gif", width=update_width)
         st.warning("You need to add some gifs to the playlist...")
 
     except:
-        image = st.image("https://media.giphy.com/media/I4SEHpagUfSpi/giphy.gif", width=500)
+        image = st.image("https://media.giphy.com/media/I4SEHpagUfSpi/giphy.gif", width=update_width)
         st.warning("hmmm...")
 with col3:
     st.write("")
